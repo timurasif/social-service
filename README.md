@@ -51,7 +51,7 @@ application properties:
 `mvn clean package`
 
 ### Run the application.
-`java -jar target/social-service.jar`
+`java -jar target/social-0.0.1-SNAPSHOT.jar`
 
 ## API Endpoints
 The application provides the following RESTful endpoints:
