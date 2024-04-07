@@ -103,14 +103,6 @@ public class PostService {
                     .map(CreateCommentResponse::fromEntity)
                     .collect(Collectors.toList());
 
-//            byte[] imageBytes = null;
-//            if(post.getImagePath() != null){
-//                System.out.println("Getting image from GCS for post id: " + post.getId());
-//                ByteArrayInputStream imageByteArray = gcpImageTransferService.downloadImage(post.getImagePath());
-//                if(imageByteArray != null){
-//                    imageBytes = helpers.convertInputStreamToByteArray(imageByteArray);
-//                }
-//            }
             PostWithComments postWithComments = new PostWithComments(post, commentResponses);
             postsWithComments.add(postWithComments);
         }

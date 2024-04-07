@@ -61,6 +61,19 @@ public class ExceptionHandlers {
         }
     }
 
+    @ExceptionHandler(ImageNotFoundException.class)
+    public ResponseEntity<Object> handleImageNotFoundException(ImageNotFoundException ex) {
+        String errorMessage = ex.getMessage();
+        Response response = new Response(Constants.HttpStatusCodes.NOT_FOUND, errorMessage, null);
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    public static class ImageNotFoundException extends RuntimeException {
+        public ImageNotFoundException(String message) {
+            super(message);
+        }
+    }
+
     @ExceptionHandler(ImageException.class)
     public ResponseEntity<Object> handleImageException(ImageException ex) {
         String errorMessage = ex.getMessage();

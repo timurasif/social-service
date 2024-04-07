@@ -9,6 +9,9 @@ public class Constants {
         public static final int NOT_FOUND = 404;
     }
 
+    public static final String SPACE_REPRESENTATION = "%20";
+    public static final int IMAGE_HEIGHT = 600;
+    public static final int IMAGE_WIDTH = 600;
     public static final long MAX_IMAGE_SIZE_ALLOWED = 100 * 1024 * 1024;
     public static final String IMAGE_NOT_FOUND = "Image file not found!";
     public static final String WRONG_IMAGE_FORMAT = "Only images in these formats are allowed: .png, .jpg, .bmp.";

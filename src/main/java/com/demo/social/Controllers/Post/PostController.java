@@ -30,10 +30,10 @@ public class PostController {
 
     @PostMapping()
     @Operation(summary = "Create new post.")
-    public Response<Object> createPost(@RequestHeader("user-id") String userId, @RequestParam("json") String json, @RequestParam("image") MultipartFile file) throws IOException {
+    public Response<Object> createPost(@RequestHeader("user-id") String userId, @RequestParam("body") String body, @RequestParam("image") MultipartFile file) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
-        CreatePostRequest createPostRequest = mapper.readValue(json, CreatePostRequest.class);
+        CreatePostRequest createPostRequest = mapper.readValue(body, CreatePostRequest.class);
 
         if (file.isEmpty()) {
             return new Response<>(Constants.HttpStatusCodes.BAD_REQUEST, Constants.IMAGE_NOT_FOUND, null);

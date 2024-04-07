@@ -1,5 +1,8 @@
 package com.demo.social.Services.Image;
 
+import com.demo.social.Utils.Constants;
+import com.demo.social.Utils.Helpers;
+import com.demo.social.exceptions.ExceptionHandlers;
 import com.google.cloud.storage.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ public class GcpImageTransferService implements ImageTransferInterface{
     @Value("${gcp.image-bucket.name}")
     private String bucketName;
 
+    private final Helpers helpers;
+
     @Override
     public String uploadImage(MultipartFile file) throws IOException {
 
@@ -31,15 +36,11 @@ public class GcpImageTransferService implements ImageTransferInterface{
 
     @Override
     public ByteArrayInputStream downloadImage(String imageUrl) {
-        System.out.println("Image URL: " + imageUrl);
-        System.out.println("Bucket: " + bucketName);
+        String[] blobInfo = helpers.extractBlobInfoFromUrl(imageUrl);
+        String blobName = blobInfo[0];
+        Long blobGeneration = Long.valueOf(blobInfo[1]);
 
-        String[] blobInfo = extractBlobInfoFromUrl(imageUrl);
-        System.out.println("Blob name: " + blobInfo[0]);
-        System.out.println("Blob generation: " + blobInfo[1]);
-
-        BlobId blobId = BlobId.of(bucketName, blobInfo[0], Long.valueOf(blobInfo[1]));
-        System.out.println("BlobId: " + blobId);
+        BlobId blobId = BlobId.of(bucketName, blobName, blobGeneration);
 
         Storage storage = StorageOptions.getDefaultInstance().getService();
         Blob blob = storage.get(blobId);
@@ -49,20 +50,8 @@ public class GcpImageTransferService implements ImageTransferInterface{
             blob.downloadTo(outputStream);
             return new ByteArrayInputStream(outputStream.toByteArray());
         } else {
-            System.err.println("Blob not found for BlobId: " + blobId);
-            return null;
+            throw new ExceptionHandlers.ImageNotFoundException("Image not found.");
         }
-    }
-
-    private static String[] extractBlobInfoFromUrl(String imageUrl) {
-        int startIndex = imageUrl.indexOf("generation=") + "generation=".length();
-        int endIndex = imageUrl.indexOf("&", startIndex);
-        String generationString = imageUrl.substring(startIndex, endIndex);
-
-        int lastSlashIndex = imageUrl.lastIndexOf('/');
-        String blobName = imageUrl.substring(lastSlashIndex + 1, startIndex - "generation=".length() - 1);
-
-        return new String[]{blobName, generationString};
     }
 
 }
