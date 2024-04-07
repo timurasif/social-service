@@ -17,11 +17,11 @@ The Social Service is a RESTful API-based backend application written in Java Sp
 - Image Serving: Retrieve images stored in Google Cloud Storage.
 
 ## Technologies Used
-- Spring Boot: For building the backend application.
-- Spring Data JPA (with PostgreSQL dialiect): For interacting with the database.
-- Spring Web: For handling HTTP requests.
-- PostgreSQL: As the relational database for storing posts, comments and image metadata.
-- Google Cloud Storage (GCS): For storing and serving image files.
+- **Spring Boot**: For building the backend application.
+- **Spring Data JPA (with PostgreSQL dialiect)**: For interacting with the database.
+- **Spring Web**: For handling HTTP requests.
+- **PostgreSQL**: As the relational database for storing posts, comments and image metadata.
+- **Google Cloud Storage (GCS)**: For storing and serving image files.
 
 ## Setup
 ### Prerequisites
@@ -47,10 +47,15 @@ application properties:
 > - gcp.credentials.location=/path/to/your/credentials.json
 > - gcp.image-bucket.name=gcs_bucket_name
  
-### Build the application using Maven.
+### Run the app using shell script
+`./run.sh`
+
+OR
+
+### Build the application using Maven
 `mvn clean package`
 
-### Run the application.
+### Run the application
 `java -jar target/social-0.0.1-SNAPSHOT.jar`
 
 ## API Endpoints
