@@ -1,0 +1,18 @@
+services:
+  social-service:
+    container_name: social-container
+    build: .
+    ports:
+      - "8090:8090"
+    depends_on:
+      - db
+
+  db:
+    container_name: postgres-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: socialDB
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
