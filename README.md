@@ -3,13 +3,17 @@ This is a Spring Boot application creating posts, adding comments, and images in
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Technologies Used](#technologies-used)
-4. [Setup](#setup)
+2. [API Documentation](#api-documentation)
+3. [Features](#features)
+4. [Technologies Used](#technologies-used)
+5. [Setup](#setup)
 6. [API Endpoints](#api-endpoints)
 
 ## Introduction
 The Social Service is a RESTful API-based backend application written in Java Spring Boot, designed to create and manage social media posts, comments, and images. It provides endpoints for creating, updating, and retrieving posts and comments, as well as fetching images stored in Google Cloud Storage (GCS).
+
+## API Documentation
+http://localhost:8090/swagger-ui/index.html
 
 ## Features
 - Post Management: Create, update, and fetch posts.
