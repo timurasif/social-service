@@ -9,6 +9,8 @@ import com.demo.social.Services.Comment.CommentService;
 import com.demo.social.Services.Post.PostService;
 import com.demo.social.Utils.Constants;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,11 @@ public class CommentController {
 
     @PostMapping()
     @Operation(summary = "Create new comment.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Commented posted"),
+            @ApiResponse(responseCode = "400", description = "Post not found"),
+            @ApiResponse(responseCode = "400", description = "Invalid user ID")
+    })
     public Response<Object> createComment(@RequestHeader("user-id") String userId, @RequestBody CreateCommentRequest createCommentRequest) {
         CreateCommentResponse createdComment = commentService.createNewComment(CreateCommentRequest.toEntity(createCommentRequest), userId);
 
@@ -31,6 +38,12 @@ public class CommentController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a comment.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Commented deleted"),
+            @ApiResponse(responseCode = "400", description = "Comment not found"),
+            @ApiResponse(responseCode = "400", description = "Invalid user ID"),
+            @ApiResponse(responseCode = "400", description = "Comment does not belong to this user"),
+    })
     public Response<Object> deleteComment(@RequestHeader("user-id") String userId, @PathVariable("id") Integer id) {
         commentService.deleteComment(userId, id);
 

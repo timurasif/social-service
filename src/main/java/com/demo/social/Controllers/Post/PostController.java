@@ -11,6 +11,8 @@ import com.demo.social.Utils.Helpers;
 import com.demo.social.exceptions.ExceptionHandlers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,12 @@ public class PostController {
 
     @PostMapping()
     @Operation(summary = "Create new post.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Post created"),
+            @ApiResponse(responseCode = "400", description = "Image file not found"),
+            @ApiResponse(responseCode = "403", description = "Wrong image format"),
+            @ApiResponse(responseCode = "403", description = "Wrong image size"),
+    })
     public Response<Object> createPost(@RequestHeader("user-id") String userId, @RequestParam("body") String body, @RequestParam("image") MultipartFile file) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -53,6 +61,12 @@ public class PostController {
 
     @PatchMapping("/{id}")
     @Operation(summary = "Update post caption.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Post updated"),
+            @ApiResponse(responseCode = "400", description = "Post not found"),
+            @ApiResponse(responseCode = "400", description = "Invalid user ID"),
+            @ApiResponse(responseCode = "400", description = "Post does not belong to this user"),
+    })
     public Response<Object> updatePost(@RequestHeader("user-id") String userId, @PathVariable("id") Integer id, @RequestBody UpdatePostRequest updatePostRequest) {
         CreatePostResponse createdPost = postService.updatePost(id, updatePostRequest.getCaption(), userId);
 
@@ -61,6 +75,9 @@ public class PostController {
 
     @GetMapping()
     @Operation(summary = "Get posts.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Post fetched")
+    })
     public Response<Object> getPosts(@RequestParam(name = "cursor", defaultValue = "1") int cursor,
                                        @RequestParam(name = "length", defaultValue = "5") int pageSize) {
         List<PostWithComments> postsWithComments = postService.getPosts(cursor, pageSize);
