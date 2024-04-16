@@ -1,10 +1,17 @@
 # System Improvements
 
+Please note that these improvements are mentioned while keeping the current scope of functional requirements in mind.
+With the addition of new requirements, these recommendations may need to be adjusted.
+Changes in system design, choice of database and redesigning of the architecture might also be necessary to accommodate any future enhancements.
+
 ## Testing
 - Implement test cases (unit, integration, acceptance etc.)
 
 ## Monitoring and Logging
 - Performance monitoring, alerting and logging mechanisms to monitor system health and performance (Prometheus, Grafana, ELK stack can be used)
+
+## Image Optimization
+- Compression and decompression of image files for efficient storage
 
 ## Scalability
 
@@ -27,9 +34,6 @@
 ## API Gateway
 - API gateway layer can be added for user authentication and authorization (Spring Cloud Gateway or Netflix Zuul can be used in Spring ecosystem)
 
-## Image Optimization
-- Compression and decompression of image files for efficient storage
-
 ## Caching
 - Adding cache to store frequently accessed data and improve response times for read-heavy operations (Redis or memcached including others can be used)
 
@@ -44,3 +48,6 @@
 
 ## CI/CD pipeline
 - CI/CD pipeline to automate the build and deployment processes and ensure quick and reliable delivery (Jenkins, Github Actions etc)
+
+## Optimized Newsfeed
+- Enhanced and optimized newsfeed generation algorithms
